@@ -40,7 +40,14 @@ namespace MAUI_IOT.ViewModels
         public ObservableCollection<ISeries> SeriesY { get; set; }
         public ObservableCollection<ISeries> SeriesZ { get; set; }
 
+        public ObservableCollection<double> a { get; set; }
+        public ObservableCollection<double> F { get; set; }
+        public ObservableCollection<DateTime> Time { get; set; }
+        public ObservableCollection<TimeSpan> Duration { get; set; }
 
+        //dữ liệu khối lượng
+        [ObservableProperty]
+        private double m;
 
         ADXL345Sensor ADXL345Sensor { get; set; }
 
@@ -308,11 +315,6 @@ namespace MAUI_IOT.ViewModels
             await Shell.Current.GoToAsync(nameof(FullScreenChartView), paramaters);
         }
 
-        public ObservableCollection<double> a { get; set; }
-        public ObservableCollection<double> F { get; set; }
-        public ObservableCollection<DateTime> Time { get; set; }
-        public ObservableCollection<TimeSpan> Duration { get; set; }
-
         [ObservableProperty]
         private double avgF;
 
@@ -325,6 +327,8 @@ namespace MAUI_IOT.ViewModels
             }); 
         }
 
+
+        //dữ liệu cho bảng
         private async Task DataBinding()
         {
             if (a.Count == 0 || Time.Count == 0 || a.Count != F.Count || a.Count != Time.Count)
@@ -337,6 +341,7 @@ namespace MAUI_IOT.ViewModels
             if (n <= 1) return;
 
             TimeSpan diff = Time[n - 1] - Time[0];
+
             // số mẫu lấy trong một 100ms
             int duration = 15;
 
@@ -360,9 +365,6 @@ namespace MAUI_IOT.ViewModels
             F = _F;
             Time = _time;
             
-            //_a.Clear();
-            //_F.Clear(); 
-            //_time.Clear();
 
             for(int i = 0; i < Time.Count; i++)
                 Duration.Add(Time[i] - Time[0]);
@@ -370,10 +372,7 @@ namespace MAUI_IOT.ViewModels
 
             avgF = F.Any() ? F.Average() : 0;
 
-            Debug.WriteLine($"{a.Count} {F.Count} {Time.Count} {m} {diff.TotalMilliseconds}");
+            //Debug.WriteLine($"{a.Count} {F.Count} {Time.Count} {m} {diff.TotalMilliseconds}");
         }
-
-        [ObservableProperty]
-        private double m;
     }
 }
