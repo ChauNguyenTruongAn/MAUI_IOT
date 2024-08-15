@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MAUI_IOT.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MAUI_IOT"
+    xmlns:pages="clr-namespace:MAUI_IOT.Pages"
+    xmlns:views="clr-namespace:MAUI_IOT.Views"
+    Title="MAUI_IOT"
+    Shell.FlyoutBehavior="Flyout">
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:LoadingView}"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:LoginView}"
+        Route="LoginView"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"
+        Shell.TabBarIsVisible="False" />
+
+
+    <TabBar>
+
+        <ShellContent
+            Title="Lesson"
+            ContentTemplate="{DataTemplate views:HomeView}"
+            Route="HomeView" 
+            />
+
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:ProfileView}"
+            Route="ProfileView" />
+    </TabBar>
+
+    <!--<ShellContent
+     ContentTemplate="{DataTemplate views:ADXL345View}"
+     Shell.FlyoutBehavior="Disabled"
+     Shell.FlyoutItemIsVisible="False" />-->
+
+</Shell>
